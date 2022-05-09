@@ -1,0 +1,8 @@
+.App-header{
+    cursor: pointer;
+    background-color: darkcyan;
+}
+
+.App-header h1{
+    color: goldenrod;
+}
