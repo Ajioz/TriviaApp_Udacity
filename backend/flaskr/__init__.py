@@ -29,8 +29,7 @@ def create_app(test_config=None):
     @app.route('/categories/<int:category_id>/questions', methods=['GET'])
     def retrieve_questions_by_category(category_id):
         try:
-            questions = \
-                Question.query.filter(Question.category == category_id).all()
+            questions = Question.query.filter(Question.category == str(category_id)).all()
             return jsonify({
                 'success': True,
                 'questions': [question.format() for question in questions]
@@ -134,11 +133,11 @@ def create_app(test_config=None):
     @app.route('/quizzes', methods=['POST'])
     def retrieve_quiz_question():
         data = dict(request.form or request.json or request.data)
-        category = data.get('quiz_category')
+        category = data.get("quiz_category")
                 
-        previous_questions = data.get('previous_questions', [])
+        previous_questions = data.get("previous_questions", [])
 
-        if not data.get('quiz_category'):
+        if not data.get("quiz_category"):
             return json.dumps({
                 'success': False,
                 'error': 'Missing params.'
@@ -150,8 +149,7 @@ def create_app(test_config=None):
                     Question.id.notin_(previous_questions)
                 ).limit(1).one_or_none()
             else:
-                selected_question = Question.query.filter_by(
-                    category=category['id']).filter(
+                selected_question = Question.query.filter_by(category=category["id"]).filter(
                     Question.id.notin_(previous_questions)
                 ).limit(1).one_or_none()
 
