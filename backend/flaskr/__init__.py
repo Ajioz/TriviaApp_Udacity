@@ -18,6 +18,7 @@ def create_app(test_config=None):
         response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization,true')
         response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
         return response
+    
     @app.route('/categories', methods=['GET'])
     def retrieve_categories():
         categories = Category.query.order_by(Category.type).all()
@@ -61,6 +62,7 @@ def create_app(test_config=None):
             'selected_page': selected_page
         })
 
+
     @app.route('/questions/<question_id>', methods=['DELETE'])
     def delete_question(question_id):
         question = \
@@ -76,6 +78,7 @@ def create_app(test_config=None):
                 'success': False,
                 'error': 'Drink #' + question_id + ' not found to be deleted'
             }), 404
+
 
     @app.route('/questions', methods=['POST'])
     def create_question():
@@ -107,6 +110,7 @@ def create_app(test_config=None):
                     'success': False,
                     'error': "An error occurred"
                 }), 500
+
 
     @app.route('/questions/find', methods=['POST'])
     def retrieve_questions_by_term():
